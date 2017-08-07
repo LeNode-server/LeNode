@@ -1,4 +1,4 @@
-This is a minimalistic NodeJS based Web-server
+LeNode is a lesser (minimalistic) NodeJS based Web-server
 ## Features
 #### - Easy setup
 You can setup your server by creating .indexes files by JSON format in any directory like this:
