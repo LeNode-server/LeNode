@@ -106,11 +106,13 @@ html, body {
 
 .demo-content {
   max-width: 1080px;
+  color: #757575;
+  padding-top: 120px;
 }
 
 .demo-charts {
   -webkit-align-items: center;
-      -ms-flex-align: center;
+       -ms-flex-align: center;
           align-items: center;
 }
 .demo-chart:nth-child(1) {
@@ -213,4 +215,19 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.main-header,.main-header-tip{
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+.content-wrapper{
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: rgba(245, 245, 245, 0.95);
+}
+main{
+  background: center url(/images/background-main.png);
+  background-size: cover;
 }
