@@ -231,3 +231,7 @@ main{
   background: center url(/images/background-main.png);
   background-size: cover;
 }
+.code-header{
+  display: block;
+  width: 100%;
+}
