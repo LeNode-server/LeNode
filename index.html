@@ -48,9 +48,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="/highlight/styles/vs2015.css">
-    <script src="/highlight/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="vscode-hl.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/prism.js"></script>
+    <script src="/js/vscode-hl-addon.js"></script>
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -106,7 +107,9 @@
             <h2 class="main-header">LeNode</h2>
             <h3 class="main-header-tip">is a Node JS based minimalistic web-server<br/>with easy-to-create site building system</h3>
             <h6 class="code-header">There will be some code:</h6>
-            <pre style="max-width:100%;"><code class="javascript">function route(exit, write, throwError, url, GET, POST, REQUEST, headers, IP, writeHead){
+          </div>
+        </div>
+        <pre><code class="language-javascript">function route(exit, write, throwError, url, GET, POST, REQUEST, headers, IP, writeHead){
     if (app.mainSettings.advancedLogging) console.log(IP + ' requested a page ' + url + ' with GET ' + JSON.stringify(GET) + ' and POST ' + JSON.stringify(POST) + ' arguments');
     if (/.*\/\.indexes\/?$/.test(url)) throwError(403, 'Not Allowed');
     fs.lstat('.' + url, (err, stats) => {
@@ -115,9 +118,11 @@
                 try {
                     var contents = fs.readFileSync('.' + url);
                     writeHead({'Content-Type': 'application/octet-stream'});
-                    exit(contents, true);
+                    exit(contents, true); //some comment
                 } catch (e){
-                    exit('Unable to load file');
+                    exit('Unable to load file'); /*
+                    some cooment
+                    */
                 }
             } else {
                 var foundIndex = false;
@@ -175,9 +180,11 @@
     setTimeout(function(){
         exit();
     }, app.mainSettings.serverTimeout);
-}</code></pre>
-          </div>
-        </div>
+}
+(() => {
+    var $elementsToHighlight = $('pre code[language="javascript"]');
+    console.log($elementsToHighlight);
+})();</code></pre>
       </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>

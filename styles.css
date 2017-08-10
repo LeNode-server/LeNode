@@ -235,3 +235,23 @@ main{
   display: block;
   width: 100%;
 }
+/* Представление кода */
+pre{
+  margin: 0;
+  border: 0;
+  max-width: 100%;
+  overflow: auto;
+  padding: 0 8px;
+  /* гамма */
+  background: rgba(30, 30, 30, 0.75);
+  color: #fff;
+}
+.hl-func-definition{
+  color: #569CD6;
+}
+.hl-func-name{
+  color: #dcdcaa;
+}
+.hl-variable{
+  color: #9cdcfe;
+}
