@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
             content : '=&#62;',
             post : ['{','punctuation']
         },
+        'extends',
     ],
     builtins = [
         'console',
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     if ($this.html() == r) $this.addClass('special');
                 }
             });
+            if ($(spans[i + 1]).html() == '(') $this.attr('class','token function');
         });
         var regExPat = '>([^<>]*[^A-Za-z]{1,}|[^A-Za-z]*){%builtin%}([^A-Za-z]{1,}[^<>]*|[^A-Za-z]*)<';
         builtins.forEach(function(r){
