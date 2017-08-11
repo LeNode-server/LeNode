@@ -92,17 +92,14 @@ document.addEventListener('DOMContentLoaded', function(){
             var $this = $(this),
                 regex = $this.html();
             if (/^\/\^(.*)\$\/[a-z]*$/.test(regex)){
-                //регулярное выражение с объявлением начала и конца
                 $this.html(regex.replace(/^\/\^(.*)\$\/([a-z]*)$/, function(str, inside, mods){
                     return  '/<span class="token regex-special">^</span>' + parseRegExPart(inside) + '<span class="token regex-special">$</span>/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
                 }));
             } else if (/^\/(.*)\$\/[a-z]*$/.test(regex)){
-                //регулярное выражение с объявлением только конца
                 $this.html(regex.replace(/^\/(.*)\$\/([a-z]*)$/, function(str, inside, mods){
                     return  '/' + parseRegExPart(inside) + '<span class="token regex-special">$</span>/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
                 }));
             } else if (/^\/\^(.*)\/[a-z]*$/.test(regex)){
-                //регулярное выражение с объявлением только начала
                 $this.html(regex.replace(/^\/\^(.*)\/([a-z]*)$/, function(str, inside, mods){
                     return  '/<span class="token regex-special">^</span>' + parseRegExPart(inside) + '/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
                 }));
@@ -110,9 +107,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 $this.html(regex.replace(/^\/(.*)\/([a-z]*)$/, function(str, inside, mods){
                     return  '/' + parseRegExPart(inside) + '/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
                 }));
-                //регулярное выражение без нихера
             }
-            console.log('regexp: ' + regex);
+        });
+        $this.find('span.comment').each(function(){
+            $(this).find('*').each(function(){
+                $(this)[0].outerHTML = $(this).html();
+            });
         });
     });
 });

@@ -106,86 +106,56 @@
           <div class="mdl-grid demo-content">
             <h2 class="main-header">LeNode</h2>
             <h3 class="main-header-tip">is a Node JS based minimalistic web-server<br/>with easy-to-create site building system</h3>
-            <h6 class="code-header">There will be some code:</h6>
+            <div class="code-header list-header">Features</div>
+            <div class="code-header list-entry">- Easy setup</div>
           </div>
         </div>
         <div class="code-wrapper">
-            <pre><code class="language-javascript">function route(exit, write, throwError, url, GET, POST, REQUEST, headers, IP, writeHead){
-    if (app.mainSettings.advancedLogging) console.log(IP + ' requested a page ' + url + ' with GET ' + JSON.stringify(GET) + ' and POST ' + JSON.stringify(POST) + ' arguments');
-    if (/^.*\/\.in[^w]d+e?xe*s\/{1,2}$/gi.test(url)) throwError(403, 'Not Allowed');
-    fs.lstat('.' + url, (err, stats) => {
-        if (!err){
-            if(stats.isFile()){
-                try {
-                    var contents = fs.readFileSync('.' + url);
-                    writeHead({'Content-Type': 'application/octet-stream'});
-                    exit(contents, true); //some comment
-                } catch (e){
-                    exit('Unable to load file'); /*
-                    some cooment
-                    */
-                }
-            } else {
-                var foundIndex = false;
-                (function(url){
-                    var indexes = getIndexes(url);
-                    for (var i in indexes){
-                        if (fs.existsSync('.' + url + i)){
-                            foundIndex = {
-                                name : '.' + url + i,
-                                executable : !!(indexes[i].executable),
-                                charset : indexes[i].charset
-                            };
-                            return;
-                        }
-                    }
-                })(/\/$/.test(url) ? url : (url + '/'));
-                if (!foundIndex) throwError(404, 'Not Found'); else {
-                    try {
-                        var contents = fs.readFileSync(foundIndex.name, foundIndex.charset);
-                        try {
-                            var pH = {}, headersClosed = false;
-                            eval(contents);
-                            exit((function(){
-                                var a = page(function(a){
-                                    if (!headersClosed){
-                                        headersClosed = true;
-                                        let status = pH.code ? pH.code : 200;
-                                        console.log(status);
-                                        delete pH.code;
-                                        writeHead(app.extends(pH, {'Content-Type': 'text/html;charset=' + foundIndex.charset}), status);
-                                    }
-                                    write(a + '');
-                                }, GET, POST, REQUEST, headers, IP, function(header){pH=app.extends(header, pH);}, polymorph.mainInterface) + '';
-                                if (!headersClosed){
-                                    let status = pH.code ? pH.code : 200;
-                                    delete pH.code;
-                                    writeHead(app.extends(pH, {'Content-Type': 'text/html;charset=' + foundIndex.charset}), status);
-                                }
-                                return a;
-                            })());
-                            page = undefined;
-                            pH = {};
-                        } catch (e){
-                            exit(e.stack);
-                        }
-                    } catch (e){
-                        exit('Error: cannot read index file');
-                    }
-                }
-            }
-        } else {
-            throwError(404, 'Not Found');
-        }
-    });
-    setTimeout(function(){
-        exit();
-    }, app.mainSettings.serverTimeout);
-}
-(() => {
-    var $elementsToHighlight = $('pre code[language="javascript"]');
-    console.log($elementsToHighlight);
-})();</code></pre>
+            <pre><code class="language-javascript">{
+    "index_own.js" : {
+        "executable" : true,
+        "charset" : "utf8"
+    },
+    "second_own_index.html" : {
+        "charset" : "win1251"
+    },
+    "third_own_index.ext" : {}
+}</code></pre>
+        </div>
+        <div class="content-wrapper">
+          <div class="mdl-grid demo-content" style="padding-top:0;">
+            <div class="code-header list-entry-tip">You can execute any file with any extension as a JS file Any directory will get its parent indexes if you don't overwrite them
+Next, your executable pages must be created wrapped in page() function like this</div>
+          </div>
+        </div>
+        <div class="code-wrapper">
+            <pre><code class="language-javascript">page(
+    write, // function that writes contents directly to page without buffering
+    GET, // GET object (PHP analogue)
+    POST, // POST object (PHP analogue)
+    REQUEST, // REQUEST object (PHP analogue)
+    headers, // request headers
+    IP, // remote client IP
+    addHeaders, // function that adds headers to queue (if you're used write(), headers will be placed no more). For setting responce code, you may use addHeaders({code:200}) (200 is default). If you will set an existing header, it will be overwrited by new
+    polymorph // a function, that ables you easily to create an overflowed functions. Usage:
+    /*
+        var func = polymorph(
+            function(a,b,c){return '3 any args passed';},
+            {i: String, a: Boolean},
+            function(i,a){return 'Passed string and boolean';}
+        );
+    */
+    ){
+    return 'Hell O MFs';
+}</code></pre>
+        </div>
+        <div class="content-wrapper">
+          <div class="mdl-grid demo-content" style="padding-top:0;">
+            <div class="code-header list-entry">- Lightweight</div>
+            <div class="code-header list-entry-tip">On Windows 10 machine it using ~8-9 MBs of memory</div>
+            <div class="code-header list-entry">- Extensible</div>
+            <div class="code-header list-entry-tip">Any changes (excluding main server file) will be applied immediately, there are no need to restart the server</div>
+          </div>
         </div>
       </main>
     </div>

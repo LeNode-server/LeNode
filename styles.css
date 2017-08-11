@@ -246,12 +246,14 @@ pre{
   background: rgba(30, 30, 30, 0.75);
   color: #fff;
 }
-.hl-func-definition{
-  color: #569CD6;
+.list-header{
+  font-size: 30px;
 }
-.hl-func-name{
-  color: #dcdcaa;
+.list-entry{
+    font-size: 25px;
+    padding: 15px;
 }
-.hl-variable{
-  color: #9cdcfe;
+.list-entry-tip{
+    padding: 10px;
+    font-size: 17px;
 }
