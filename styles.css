@@ -258,3 +258,7 @@ pre{
     padding: 10px;
     font-size: 17px;
 }
+div.mdl-navigation__link:hover {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.56) !important;
+}
