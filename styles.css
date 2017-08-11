@@ -247,7 +247,8 @@ pre{
   color: #fff;
 }
 .list-header{
-  font-size: 30px;
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 .list-entry{
     font-size: 25px;
