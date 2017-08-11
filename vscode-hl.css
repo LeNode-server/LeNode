@@ -1,8 +1,8 @@
-/* http://prismjs.com/download.html?themes=prism-okaidia&languages=clike+javascript&plugins=line-highlight+line-numbers */
 /**
- * okaidia theme for JavaScript, CSS and HTML
- * Loosely based on Monokai textmate theme by http://www.monokai.nl/
- * @author ocodia
+ * Visual Studio Code theme for JavaScript (prism.js)
+ * Based on okaidia theme for JavaScript, CSS and HTML http://prismjs.com/download.html?themes=prism-okaidia&languages=clike+javascript&plugins=line-highlight+line-numbers
+ * @author KaMeHb
+ * For completely highlighting, use it with vscode-hl-addon.js, that's need to be loaded after prism!
  */
 
 code[class*="language-"],
@@ -34,9 +34,8 @@ pre[class*="language-"] {
 	border: 0;
 	max-width: 100%;
 	overflow: auto;
-	padding: 0 8px;
-	/* гамма */
-	background: rgba(30, 30, 30, 0.75);
+	/* гамма
+	background: rgba(30, 30, 30, 0.75); */
 	color: #fff;
 }
 
@@ -47,7 +46,6 @@ pre[class*="language-"] {
 	white-space: normal;
 }
 
-.token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
@@ -70,16 +68,9 @@ pre[class*="language-"] {
 	color: #f92672;
 }
 
-.token.boolean,
-.token.number {
-	color: #ae81ff;
-}
-
 .token.selector,
 .token.attr-name,
-.token.string,
 .token.char,
-.token.builtin,
 .token.inserted {
 	color: #a6e22e;
 }
@@ -94,13 +85,8 @@ pre[class*="language-"] {
 }
 
 .token.atrule,
-.token.attr-value,
-.token.function {
+.token.attr-value {
 	color: #e6db74;
-}
-
-.token.keyword {
-	color: #569CD6;
 }
 
 .token.regex,
@@ -192,23 +178,23 @@ pre.line-numbers > code {
 
 }
 
-	.line-numbers-rows > span {
-		pointer-events: none;
-		display: block;
-		counter-increment: linenumber;
-	}
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
 
-		.line-numbers-rows > span:before {
-			content: counter(linenumber);
-			color: #999;
-			display: block;
-			padding-right: 0.8em;
-			text-align: right;
-		}
-.token.special, .token.boolean{
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+.token.special, .token.boolean, .token.regex-mod{
 	color: #569CD6 !important;
 }
-.token.keyword{
+.token.keyword, .token.regex-special{
 	color: #C586C0;
 }
 .token.string{
@@ -228,4 +214,11 @@ pre.line-numbers > code {
 }
 .token.comment{
 	color: #608B4E;
+}
+.token.regex-punctuation {
+	color: #f8f8f2;
+}
+div.code-wrapper{
+	padding: 0 20px;
+	background: rgba(30, 30, 30, 0.75);
 }

@@ -109,9 +109,10 @@
             <h6 class="code-header">There will be some code:</h6>
           </div>
         </div>
-        <pre><code class="language-javascript">function route(exit, write, throwError, url, GET, POST, REQUEST, headers, IP, writeHead){
+        <div class="code-wrapper">
+            <pre><code class="language-javascript">function route(exit, write, throwError, url, GET, POST, REQUEST, headers, IP, writeHead){
     if (app.mainSettings.advancedLogging) console.log(IP + ' requested a page ' + url + ' with GET ' + JSON.stringify(GET) + ' and POST ' + JSON.stringify(POST) + ' arguments');
-    if (/.*\/\.indexes\/?$/.test(url)) throwError(403, 'Not Allowed');
+    if (/^.*\/\.in[^w]d+e?xe*s\/{1,2}$/gi.test(url)) throwError(403, 'Not Allowed');
     fs.lstat('.' + url, (err, stats) => {
         if (!err){
             if(stats.isFile()){
@@ -185,6 +186,7 @@
     var $elementsToHighlight = $('pre code[language="javascript"]');
     console.log($elementsToHighlight);
 })();</code></pre>
+        </div>
       </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>

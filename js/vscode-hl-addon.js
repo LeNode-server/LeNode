@@ -1,36 +1,51 @@
+/**
+ * Visual Studio Code highlight addon for prism (JavaScript)
+ * @author KaMeHb
+ * Note: Need to be loaded after prism!
+ */
 document.addEventListener('DOMContentLoaded', function(){
     var specials = [
-        'function',
-        'var',
-        'in',
-        {
-            pre : [')', 'punctuation'],
-            content : '=>',
-            post : ['{','punctuation']
-        },
-        {
-            pre : [')', 'punctuation'],
-            content : '=&gt;',
-            post : ['{','punctuation']
-        },
-        {
-            pre : [')', 'punctuation'],
-            content : '=&#62;',
-            post : ['{','punctuation']
-        },
-        'extends',
-    ],
-    builtins = [
-        'console',
-        'JSON',
-        'Object',
-        'RegExp',
-        'Array',
-        'String',
-        'Boolean',
-        'NodeList',
-    ];
-    //comment
+            'function',
+            'var',
+            'in',
+            {
+                pre : [')', 'punctuation'],
+                content : '=>',
+                post : ['{','punctuation']
+            },
+            {
+                pre : [')', 'punctuation'],
+                content : '=&gt;',
+                post : ['{','punctuation']
+            },
+            {
+                pre : [')', 'punctuation'],
+                content : '=&#62;',
+                post : ['{','punctuation']
+            },
+            'extends',
+            'let',
+            'delete',
+        ],
+        builtins = [
+            'console',
+            'JSON',
+            'Object',
+            'RegExp',
+            'Array',
+            'String',
+            'Boolean',
+            'NodeList',
+        ],
+        cantToBeFunctionsNames = [
+            'function',
+            'catch',
+            'return',
+            'var',
+            'if',
+            'for',
+            'while',
+        ];
     function eq($elem, toEq){
         if (Object.prototype.toString.call(toEq) === '[object Array]'){
             if ($elem.html() == toEq[0] && $elem.hasClass(toEq[1])){
@@ -57,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     if ($this.html() == r) $this.addClass('special');
                 }
             });
-            if ($(spans[i + 1]).html() == '(' && $this.html() != 'function' && ($this.hasClass('builtin') || $this.hasClass('keyword'))) $this.attr('class','token function');
+            if ($(spans[i + 1]).html() == '(' && cantToBeFunctionsNames.indexOf($this.html()) == -1 && ($this.hasClass('builtin') || $this.hasClass('keyword'))) $this.attr('class','token function');
         });
         var regExPat = '>([^<>]*[^A-Za-z]{1,}|[^A-Za-z]*){%builtin%}([^A-Za-z]{1,}[^<>]*|[^A-Za-z]*)<';
         builtins.forEach(function(r){
@@ -66,9 +81,37 @@ document.addEventListener('DOMContentLoaded', function(){
                 return '>' + bef + '<span class="token builtin">' + r + '</span>' + aft + '<';
             }));
         });
+        function parseRegExPart(part){
+            return part.replace(/([^\\])(\.|\+|\?|\||(\{\d{1,}(,\d*)?\})|\*)/g, function(str, firstSymb, punctuation){
+                return firstSymb + '<span class="token regex-punctuation">' + punctuation + '</span>';
+            }).replace(/([^\\])\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
+                return firstSymb + '[<span class="token regex-punctuation">' + punctuation + '</span>' + otherPhrase + ']';
+            });
+        }
         $this.find('span.regex').each(function(){
             var $this = $(this),
                 regex = $this.html();
+            if (/^\/\^(.*)\$\/[a-z]*$/.test(regex)){
+                //регулярное выражение с объявлением начала и конца
+                $this.html(regex.replace(/^\/\^(.*)\$\/([a-z]*)$/, function(str, inside, mods){
+                    return  '/<span class="token regex-special">^</span>' + parseRegExPart(inside) + '<span class="token regex-special">$</span>/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
+                }));
+            } else if (/^\/(.*)\$\/[a-z]*$/.test(regex)){
+                //регулярное выражение с объявлением только конца
+                $this.html(regex.replace(/^\/(.*)\$\/([a-z]*)$/, function(str, inside, mods){
+                    return  '/' + parseRegExPart(inside) + '<span class="token regex-special">$</span>/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
+                }));
+            } else if (/^\/\^(.*)\/[a-z]*$/.test(regex)){
+                //регулярное выражение с объявлением только начала
+                $this.html(regex.replace(/^\/\^(.*)\/([a-z]*)$/, function(str, inside, mods){
+                    return  '/<span class="token regex-special">^</span>' + parseRegExPart(inside) + '/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
+                }));
+            } else {
+                $this.html(regex.replace(/^\/(.*)\/([a-z]*)$/, function(str, inside, mods){
+                    return  '/' + parseRegExPart(inside) + '/' + (mods ? ('<span class="token regex-mod">' + mods + '</span>') : '');
+                }));
+                //регулярное выражение без нихера
+            }
             console.log('regexp: ' + regex);
         });
     });
