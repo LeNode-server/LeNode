@@ -109,7 +109,8 @@
             <h3 class="main-header-tip">is a Node JS based minimalistic web-server<br/>with easy-to-create site building system</h3>
             <div class="code-header list-header">Features</div>
             <div class="code-header list-entry">- Easy setup</div>
-            <div class="code-header list-entry-tip">You can setup your server by creating .indexes files by JSON format in any directory like this:</div>
+            <div class="code-header list-entry-tip">You can setup your server by:<br/>
+              Creating .indexes files by JSON format in any domain-directory like this:</div>
           </div>
         </div>
         <div class="code-wrapper">
@@ -127,8 +128,23 @@
         <div class="content-wrapper">
           <div class="mdl-grid demo-content" style="padding-top:0;">
             <div class="code-header list-entry-tip">
+              Editing .hosts file like this
+            </div>
+          </div>
+        </div>
+        <div class="code-wrapper">
+            <pre><code class="language-javascript">{
+module.exports = [
+    //host must be described as string or regExp without flags
+    [ /(localhost|192\.168\.\d{1,3}\.\d{1,3}|127\.0\.0\.1)/, '/localhost' ], // any request to "local" address will be redirected to /localhost folder
+    [ /.*/, '/not-existent-host' ],
+]</code></pre>
+        </div>
+        <div class="content-wrapper">
+          <div class="mdl-grid demo-content" style="padding-top:0;">
+            <div class="code-header list-entry-tip">
               You can execute any file with any extension as a JS file. Any directory will get its parent indexes if you don't overwrite them<br/>
-              Next, your executable pages must be created wrapped in page() function like this
+              Next, your executable pages will be automatically wrapped in page() function like this
             </div>
           </div>
         </div>
@@ -143,6 +159,7 @@
     addHeaders, // function that adds headers to queue (if you're used write(), headers will be placed no more). For setting responce code, you may use addHeaders({code:200}) (200 is default). If you will set an existing header, it will be overwrited by new
     polymorph // a function, that ables you easily to create an overflowed functions. Usage:
     /*
+        // Creating function
         var func = polymorph(
             function(a,b,c){return '3 any args passed';},
             {i: String, a: Boolean},
@@ -150,7 +167,7 @@
         );
     */
     ){
-    return 'Hell O MFs';
+    // your code actually goes here
 }</code></pre>
         </div>
         <div class="content-wrapper">
