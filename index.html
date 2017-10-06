@@ -64,19 +64,19 @@
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
             <li class="mdl-menu__item">About</li>
+            <li class="mdl-menu__item">Legal information</li>
             <li class="mdl-menu__item" style="padding:0;">
               <label for="hdrbtn2" style="display:block;padding:0 16px;">
-                Contact
+                Language
                 <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn2" style="float:right;margin-top:7px;">
                   <i class="material-icons">more_vert</i>
                 </button>
               </label>
             </li>
-            <li class="mdl-menu__item">Legal information</li>
           </ul>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn2">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Legal information</li>
+            <li class="mdl-menu__item">English</li>
+            <li class="mdl-menu__item">Russian</li>
           </ul>
         </div>
       </header>
@@ -119,7 +119,7 @@
         <div class="content-wrapper">
           <div class="mdl-grid demo-content" style="padding-top:0;">
             <div class="code-header list-entry-tip">
-              Editing .hosts file like this
+              Editing .hosts.js file:
             </div>
           </div>
         </div>
@@ -128,6 +128,58 @@
     //host must be described as string or regExp without flags
     [ /(localhost|192\.168\.\d{1,3}\.\d{1,3}|127\.0\.0\.1)/, '/localhost' ], // any request to "local" address will be redirected to /localhost folder
     [ /.*/, '/not-existent-host' ],
+]</code></pre>
+        </div>
+        <div class="content-wrapper">
+          <div class="mdl-grid demo-content" style="padding-top:0;">
+            <div class="code-header list-entry-tip">
+              And, of course, keep eye on .settings.js file:
+            </div>
+          </div>
+        </div>
+        <div class="code-wrapper">
+            <pre><code class="language-javascript">var __appDir = (a=>{a.pop();return a.join('/')})(process.mainModule.filename.split('/')),
+    polymorph = require(__appDir + '/.modules/polymorph');
+module.exports = {
+    defaultIndex : /* Default single index file settings */{
+        executable : false, // do execute?,
+        charset : 'utf8', // file encoding
+    },
+    defaultIndexes : /* Indexes list by default. WARNING!!! All indexes inheriting parents! */ {
+        'index.js' : {
+            executable : true,
+        },
+        'index2.html' : {},
+    },
+    advancedLogging : false,
+    serverTimeout : 10000, // 10 secs. to autoclose connection
+    mimeTypes : [ // Description of non-executable files mime types (any executable will be returned as text/html)
+        [/.*\.js$/,     'application/javascript'], // any non-executable .js file
+        [/.*\.css$/,    'text/css'],
+        [/.*/,          'application/octet-stream'] // any other file
+    ],
+    preventImplicitTransfer : 'isFileExecutable, stats, err, url, tmpStack, indexes, retFirstIndex, i, foundIndex, pH, headersClosed, app', // List of variables to prevent implicit passing to the page (to not prevent, clear this list)
+    additionalModules : {
+        polymorph : polymorph.mainInterface,
+    },
+    enableFTP : true,
+}</code></pre>
+        </div>
+        <div class="content-wrapper">
+          <div class="mdl-grid demo-content" style="padding-top:0;">
+            <div class="code-header list-entry-tip">
+              In any domain directory, you can route all your links in .router.js file placed in domain root:
+            </div>
+          </div>
+        </div>
+        <div class="code-wrapper">
+            <pre><code class="language-javascript">[
+    [ /.*\/\.indexes\/*$/, '/403.code' ],
+    [ /^\/?\.router\.js\/*$/, '/403.code' ],
+    [ '/execute', '/me.ext', true /* now /me.ext is executable but only from url /execute */],
+    [ /\/*(tests\/a?sync_test.js)\/*$/, '/$1', true /* tests files async_test.js and sync_test.js are executable from own url */],
+    [ /\/*(tests\/.*\.js)\/*$/, '/$1', false /* all other .js files in /tests/ are now not executable from own url and urls with slashes at the end */],
+    [ /\/*(.*\.js)\/*$/, '$1', true /* all other .js files are now executable from own url and urls with slashes at the end */],
 ]</code></pre>
         </div>
         <div class="content-wrapper">
