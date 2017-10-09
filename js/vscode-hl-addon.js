@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }));
         });
         function parseRegExPart(part){
-            return part.replace(/([^\\])(\.|\+|\?|\||(\{\d{1,}(,\d*)?\})|\*)/g, function(str, firstSymb, punctuation){
+            return part.replace(/([^\\])(\+|\?|\||(\{\d{1,}(,\d*)?\})|\*)/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-punctuation">' + punctuation + '</span>';
             }).replace(/([^\\])\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
                 return firstSymb + '[<span class="token regex-punctuation">' + punctuation + '</span>' + otherPhrase + ']';
