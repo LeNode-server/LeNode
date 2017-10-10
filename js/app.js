@@ -10,7 +10,12 @@
 document.addEventListener('DOMContentLoaded', function(){
     'use strict';
     var actions = {
-        log : console.log
+        log : ()=>{
+            console.log({
+                this : this,
+                arguments : arguments
+            })
+        }
     };
     $('*[__click]').each((i,e)=>{
         e = $(e);
