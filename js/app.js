@@ -9,7 +9,7 @@
 })();
 document.addEventListener('DOMContentLoaded', function(){
     'use strict';
-    actions = {
+    var actions = {
         log : console.log
     };
     $('*[__click]').each((i,e)=>{
