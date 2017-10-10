@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
         e = $(e);
         e.click(()=>{
             try{
+                console.log(e);
                 actions[e.attr('__click')].apply(e[0], [e]);
             } catch(e){}
         });
