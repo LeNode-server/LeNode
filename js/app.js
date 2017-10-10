@@ -7,3 +7,17 @@
         }
     }, 'json');
 })();
+document.addEventListener('DOMContentLoaded', function(){
+    'use strict';
+    actions = {
+        log : console.log
+    };
+    $('*[__click]').each((i,e)=>{
+        e = $(e);
+        e.click(()=>{
+            try{
+                actions[e.attr('__click')].apply(e[0], [e]);
+            } catch(e){}
+        });
+    });
+});
