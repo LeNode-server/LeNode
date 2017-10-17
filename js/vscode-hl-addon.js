@@ -82,16 +82,18 @@ document.addEventListener('DOMContentLoaded', function(){
             }));
         });
         function parseRegExPart(part){
-            return part.replace(/([^\\])(\+|\?|\||\*)/g, function(str, firstSymb, punctuation){
+            return part.replace(/([^\\])(\+|\?|\*)/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-punctuation">' + punctuation + '</span>';
-            }).replace(/([^\\])(\(|\))/g, function(str, firstSymb, punctuation){
+            }).replace(/([^\\]|\b)(\(|\))/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-brackets">' + punctuation + '</span>';
             }).replace(/([^\\])(\{\d{1,}(,\d*)?\})/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-braces">' + punctuation + '</span>';
-            }).replace(/([^\\])\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
+            }).replace(/([^\\]|\b)\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
                 return firstSymb + '[<span class="token regex-brackets">' + punctuation + '</span>' + otherPhrase + ']';
             }).replace(/(\\[^bBdDwW])/g, function(str, preventive){
                 return '<span class="token regex-preventive">' + preventive + '</span>';
+            }).replace(/([^\\])\|/g, function(str, firstSymb){
+                return firstSymb + '<span class="token regex-slicer">|</span>';
             });
         }
         $this.find('span.regex').each(function(){
