@@ -197,7 +197,7 @@ pre.line-numbers > code {
 .token.keyword, .token.regex-special{
 	color: #C586C0;
 }
-.token.string,.token.regex-brackets{
+.token.string,.token.regex-brackets,.token.regex-slicer{
 	color: #CE9178;
 }
 .token.function {

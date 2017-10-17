@@ -3,6 +3,7 @@
  * @author KaMeHb
  * Note: Need to be loaded after prism!
  */
+if (!window['$']) var $ = function a(){return a()}
 document.addEventListener('DOMContentLoaded', function(){
     var specials = [
             'function',
@@ -76,13 +77,13 @@ document.addEventListener('DOMContentLoaded', function(){
         });
         var regExPat = '>([^<>]*[^A-Za-z]{1,}|[^A-Za-z]*){%builtin%}([^A-Za-z]{1,}[^<>]*|[^A-Za-z]*)<';
         builtins.forEach(function(r){
-            regEx = new RegExp(regExPat.replace('{%builtin%}', r),'g');
+            var regEx = new RegExp(regExPat.replace('{%builtin%}', r),'g');
             $this.html($this.html().replace(regEx, function(str, bef, aft){
                 return '>' + bef + '<span class="token builtin">' + r + '</span>' + aft + '<';
             }));
         });
         function parseRegExPart(part){
-            return part.replace(/([^\\])(\+|\?|\*)/g, function(str, firstSymb, punctuation){
+            return (' ' + part).replace(/([^\\])(\+|\?|\*)/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-punctuation">' + punctuation + '</span>';
             }).replace(/([^\\]|\b)(\(|\))/g, function(str, firstSymb, punctuation){
                 return firstSymb + '<span class="token regex-brackets">' + punctuation + '</span>';
@@ -90,11 +91,11 @@ document.addEventListener('DOMContentLoaded', function(){
                 return firstSymb + '<span class="token regex-braces">' + punctuation + '</span>';
             }).replace(/([^\\]|\b)\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
                 return firstSymb + '[<span class="token regex-brackets">' + punctuation + '</span>' + otherPhrase + ']';
-            }).replace(/(\\[^bBdDwW])/g, function(str, preventive){
-                return '<span class="token regex-preventive">' + preventive + '</span>';
             }).replace(/([^\\])\|/g, function(str, firstSymb){
                 return firstSymb + '<span class="token regex-slicer">|</span>';
-            });
+            }).replace(/(\\[^bBdDwW])/g, function(str, preventive){
+                return '<span class="token regex-preventive">' + preventive + '</span>';
+            }).slice(1);
         }
         $this.find('span.regex').each(function(){
             var $this = $(this),
