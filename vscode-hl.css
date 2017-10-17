@@ -197,7 +197,7 @@ pre.line-numbers > code {
 .token.keyword, .token.regex-special{
 	color: #C586C0;
 }
-.token.string{
+.token.string,.token.regex-brackets{
 	color: #CE9178;
 }
 .token.function {
@@ -215,8 +215,11 @@ pre.line-numbers > code {
 .token.comment{
 	color: #608B4E;
 }
-.token.regex-punctuation {
+.token.regex-punctuation{
 	color: #f8f8f2;
+}
+.token.regex-preventive,.token.regex-braces{
+	color: #D7BA7D;
 }
 div.code-wrapper{
 	padding: 0 20px;
