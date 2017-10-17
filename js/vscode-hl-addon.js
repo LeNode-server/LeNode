@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 return firstSymb + '<span class="token regex-braces">' + punctuation + '</span>';
             }).replace(/([^\\])\[(\^)([^\]]*[^\\\]])\]/g, function(str, firstSymb, punctuation, otherPhrase){
                 return firstSymb + '[<span class="token regex-brackets">' + punctuation + '</span>' + otherPhrase + ']';
-            }).replace(/(\\.)/g, function(str, preventive){
+            }).replace(/(\\[^bBdDwW])/g, function(str, preventive){
                 return '<span class="token regex-preventive">' + preventive + '</span>';
             });
         }

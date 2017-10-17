@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     };
     $('*[__click]').each((i,e)=>{
-        e = $(e);
-        e.click(()=>{
+        _e = $(e);
+        _e.click(()=>{
             try{
                 console.log(e);
-                actions[e.attr('__click')].apply(e[0], [e]);
+                actions[e.attr('__click')].apply(_e[0], [_e, i]);
             } catch(e){}
         });
     });
