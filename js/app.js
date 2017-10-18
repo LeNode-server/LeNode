@@ -10,23 +10,20 @@ if (!window['$']) var $ = function a(){}
 })();
 document.addEventListener('DOMContentLoaded', function(){
     'use strict';
-    function _(){
-        console.log({
-            this : this,
-            arguments : arguments
-        })
-    }
-    var actions = {};
-    actions.log = _;
-    $('*[__click]').each((i,e)=>{
-        var _e = $(e);
-        _e.click(()=>{
+    var actions = {
+        log : function(){
+            console.log({
+                this : this,
+                arguments : arguments
+            })
+        }
+    };
+    $('*[__click]').each(function(i,e){
+        var e = $(e);
+        e.click(function(){
             try{
-                console.log(e);
-                actions[_e.attr('__click')].apply(_e[0], [_e, i]);
-            } catch(e){
-                console.error(e);
-            }
+                actions[e.attr('__click')].apply(e[0], [e, i]);
+            } catch(e){}
         });
     });
 });
