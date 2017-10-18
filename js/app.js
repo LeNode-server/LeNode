@@ -10,14 +10,14 @@ if (!window['$']) var $ = function a(){}
 })();
 document.addEventListener('DOMContentLoaded', function(){
     'use strict';
-    var actions = {
-        log : ()=>{
-            console.log({
-                this : this,
-                arguments : arguments
-            })
-        }
-    };
+    function _(){
+        console.log({
+            this : this,
+            arguments : arguments
+        })
+    }
+    var actions = {};
+    actions.log = _;
     $('*[__click]').each((i,e)=>{
         var _e = $(e);
         _e.click(()=>{
