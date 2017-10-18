@@ -14,17 +14,29 @@ document.addEventListener('DOMContentLoaded', function(){
         log : function(){
             console.log.apply(null, arguments);
             console.log(this);
+        },
+        hide : function(){
+            this.css('display', 'none')
+        },
+        detach : function(){
+            this.detach(arguments ? arguments[0] : undefined)
+        },
+        remove : function(){
+            this.remove(arguments ? arguments[0] : undefined)
         }
     };
     $('*[__click]').each(function(i,e){
         var e = $(e);
-        function act(){
-            actions[e.attr('__click')].apply(e, arguments);
-        }
         e.click(function(){
-            try{
-                act('Hello from');
-            } catch(e){}
+            actions[e.attr('__click')].apply(e, (function(a){
+                if (a){
+                    try{
+                        return JSON.parse(a);
+                    } catch(e){
+                        return a;
+                    }
+                }
+            })(e.attr('__click_data')));
         });
     });
 });
