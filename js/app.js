@@ -12,17 +12,18 @@ document.addEventListener('DOMContentLoaded', function(){
     'use strict';
     var actions = {
         log : function(){
-            console.log({
-                this : this,
-                arguments : arguments
-            })
+            console.log.apply(null, arguments);
+            console.log(this);
         }
     };
     $('*[__click]').each(function(i,e){
         var e = $(e);
+        function act(){
+            actions[e.attr('__click')].apply(e, arguments);
+        }
         e.click(function(){
             try{
-                actions[e.attr('__click')].apply(e[0], [e, i]);
+                act('Hello from');
             } catch(e){}
         });
     });
