@@ -1,3 +1,4 @@
+if (!window['$']) var $ = function a(){}
 (function a(){
     $.get('https://api.github.com/repos/KaMeHb-UA/LeNode/releases/latest', function(data, status){
         if (status != 'success') a(); else {
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     };
     $('*[__click]').each((i,e)=>{
-        _e = $(e);
+        var _e = $(e);
         _e.click(()=>{
             try{
                 console.log(e);

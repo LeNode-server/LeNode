@@ -3,7 +3,7 @@
  * @author KaMeHb
  * Note: Need to be loaded after prism!
  */
-if (!window['$']) var $ = function a(){return a()}
+if (!window['$']) var $ = function a(){}
 document.addEventListener('DOMContentLoaded', function(){
     var specials = [
             'function',
