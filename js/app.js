@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     } catch(e){
                         return a;
                     }
-                }
+                } else return [];
             })(e.attr('__click_data')));
         });
     });
