@@ -28,15 +28,19 @@ document.addEventListener('DOMContentLoaded', function(){
     $('*[__click]').each(function(i,e){
         var e = $(e);
         e.click(function(){
-            actions[e.attr('__click')].apply(e, (function(a){
-                if (a){
-                    try{
-                        return JSON.parse(a);
-                    } catch(e){
-                        return [a];
-                    }
-                } else return [];
-            })(e.attr('__click_data')));
+            try{
+                actions[e.attr('__click')].apply(e, (function(a){
+                    if (a){
+                        try{
+                            return JSON.parse(a);
+                        } catch(e){
+                            return [a];
+                        }
+                    } else return [];
+                })(e.attr('__click_data')));
+            } catch(e){
+                console.warn('Cannot find action ' + e.attr('__click'));
+            }
         });
     });
 });
