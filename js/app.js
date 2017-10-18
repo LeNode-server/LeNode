@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     try{
                         return JSON.parse(a);
                     } catch(e){
-                        return a;
+                        return [a];
                     }
                 } else return [];
             })(e.attr('__click_data')));
