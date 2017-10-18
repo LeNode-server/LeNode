@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function(){
         _e.click(()=>{
             try{
                 console.log(e);
-                actions[e.attr('__click')].apply(_e[0], [_e, i]);
+                actions[_e.attr('__click')].apply(_e[0], [_e, i]);
             } catch(e){
                 console.error(e);
             }
