@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', function(){
             try{
                 console.log(e);
                 actions[e.attr('__click')].apply(_e[0], [_e, i]);
-            } catch(e){}
+            } catch(e){
+                console.error(e);
+            }
         });
     });
 });
