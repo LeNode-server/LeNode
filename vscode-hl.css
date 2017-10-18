@@ -89,7 +89,6 @@ pre[class*="language-"] {
 	color: #e6db74;
 }
 
-.token.regex,
 .token.important {
 	color: #fd971f;
 }
@@ -197,7 +196,7 @@ pre.line-numbers > code {
 .token.keyword, .token.regex-special{
 	color: #C586C0;
 }
-.token.string,.token.regex-brackets,.token.regex-slicer{
+.token.string,.token.regex-brackets{
 	color: #CE9178;
 }
 .token.function {
@@ -218,7 +217,7 @@ pre.line-numbers > code {
 .token.regex-punctuation{
 	color: #f8f8f2;
 }
-.token.regex-preventive,.token.regex-braces{
+.token.regex-preventive,.token.regex-braces,.token.regex-slicer{
 	color: #D7BA7D;
 }
 div.code-wrapper{
