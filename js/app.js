@@ -1,13 +1,9 @@
 document.addEventListener('jQuery loaded', function(){
-    console.warn('jQuery loaded');
     'use strict';
     (function a(){
-        console.log('called a()');
         $.get('https://api.github.com/repos/KaMeHb-UA/LeNode/releases/latest', function(data, status){
-            console.log('getted "https://api.github.com/repos/KaMeHb-UA/LeNode/releases/latest"');
             if (status != 'success'){
                 a();
-                console.warn('status != \'success\'');
             } else {
                 $('a[rel="download"]').attr('href', data.assets[0].browser_download_url);
                 $('#latest-version').html(data.tag_name);
@@ -52,6 +48,5 @@ document.addEventListener('jQuery loaded', function(){
     })();
 });
 (function waitForJQuery(){
-    console.log('waitForJQuery();');
     if(!window.jQuery) setTimeout(waitForJQuery, 10); else document.dispatchEvent(new Event('jQuery loaded', {}));
 })();
