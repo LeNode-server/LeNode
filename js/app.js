@@ -1,7 +1,9 @@
 (function waitForJQuery(){
+    console.log('waitForJQuery();');
     if(!window.jQuery) setTimeout(waitForJQuery, 10); else document.dispatchEvent(new Event('jQuery loaded', {}));
 })();
 document.addEventListener('jQuery loaded', function(){
+    console.warn('jQuery loaded');
     'use strict';
     (function a(){
         console.log('called a()');
